@@ -7,7 +7,6 @@ namespace Library\Tools\Traits;
 /**
  * Trait dependency injection aware.
  *
- * @category   Microapp
  * @package    Tools
  */
 trait DIaware

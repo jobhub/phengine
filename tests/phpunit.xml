@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="true">
-    <testsuite name="Microapp - Testsuite">
+    <testsuite name="My Testsuite">
         <directory>./</directory>
     </testsuite>
 </phpunit>

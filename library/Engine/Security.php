@@ -4,13 +4,10 @@
  */
 namespace Engine;
 
-
-
-use Microapp\Application;
 use Phalcon\Events\Event,
 	Phalcon\Mvc\User\Plugin,
 	Phalcon\Mvc\Dispatcher,
-	Phalcon\Acl;
+	Phalcon\Acl as PhAcl;
 
 /**
  * Security
@@ -30,7 +27,7 @@ class Security extends Plugin
 		$acls = $this->getDi()->get('cacheData')->get('acl');
 
 		if(!$acls) {
-			$m = new \Engine\Acl();
+			$m = new Acl();
 			return $m->build();
 		}
 
@@ -63,7 +60,7 @@ class Security extends Plugin
 			$tmp = explode('/', $route);
 
 			if(count($tmp)<2) {
-				throw new \Engine\Exception('NO_ACTION_IN_ROUTE');
+				throw new Exception('NO_ACTION_IN_ROUTE');
 			}
 		}
 
@@ -73,7 +70,7 @@ class Security extends Plugin
 
 		$acl = $this->getAcl();
 
-		$allowed = Acl::DENY;
+		$allowed = PhAcl::DENY;
 
 		foreach($role as $r) {
 			if(is_numeric($r)) {
@@ -83,13 +80,13 @@ class Security extends Plugin
 
 			$allowed = $acl->isAllowed($r, $controller, $action);
 
-			if($allowed==Acl::ALLOW) {
+			if($allowed==PhAcl::ALLOW) {
 				break;
 			}
 		}
 
-		if ($allowed != Acl::ALLOW) {
-			throw new \Engine\Exception('PERMISSION_DENIED', 123);
+		if ($allowed != PhAcl::ALLOW) {
+			throw new Exception('PERMISSION_DENIED', 123);
 		}
 
 	}

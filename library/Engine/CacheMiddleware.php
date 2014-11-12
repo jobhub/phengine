@@ -6,7 +6,7 @@ use Phalcon\Mvc\Micro\MiddlewareInterface;
 class CacheMiddleware implements MiddlewareInterface {
 
 	/**
-	 * @param \Microapp\Application $application
+	 * @param \Engine\Application $application
 	 *
 	 * @return bool
 	 */

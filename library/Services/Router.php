@@ -13,8 +13,20 @@ class Router extends AbstractService {
 
 		    $router = new PhRouter();
 
+				$di = $this-getDi();
+
 		    $router->setDefaultModule($this->_config->application->defaultModule);
-		    $router->setDefaultNamespace("Microapp\Frontend\Controllers");
+
+				$namespace[] = \Engine\Config::getConfigValue($di, 'application->ns');
+				$default_module = \Engine\Config::getConfigValue($di, 'application->defaultModule');
+
+				if(!empty($default_module)) {
+					$router->setDefaultModule($default_module);
+					$namespace[] = ucfirst($default_module);
+				}
+				$namespace[] = 'Controllers';
+
+		    $router->setDefaultNamespace(implode("\\", $namespace));
 
 		    return $router;
 		};

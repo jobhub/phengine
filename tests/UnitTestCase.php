@@ -63,11 +63,11 @@ abstract class UnitTestCase extends \PHPUnit_Framework_TestCase {
 			ROOT_PATH
 		) );
 
-
+		$core_ns = $this->_config->application->ns;
 		$namespaces = array(
-			'Microapp'             => BASE_PATH . '/apps',
-			'Microapp\Controllers' => realpath( __DIR__ . '/controllers/' ),
-			'Microapp\Models'      => realpath( __DIR__ . '/models/' ),
+			$core_ns             => BASE_PATH . '/apps',
+			$core_ns.'\Controllers' => realpath( __DIR__ . '/controllers/' ),
+			$core_ns.'\Models'      => realpath( __DIR__ . '/models/' ),
 			'Library'             => realpath( __DIR__ . '/../library/' ),
 			'Engine'              => realpath( __DIR__ . '/../library/Engine' )
 		);

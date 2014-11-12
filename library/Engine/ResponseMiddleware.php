@@ -10,7 +10,7 @@ class ResponseMiddleware implements MiddlewareInterface {
 	public function call( $app ) {
 		if($app->request->getMethod()!='OPTIONS') {
 			/**
-			 * @var $app \Microapp\Application
+			 * @var $app \Engine\Application
 			 */
 			$app->view->disableLevel( array(
 				View::LEVEL_ACTION_VIEW     => true,

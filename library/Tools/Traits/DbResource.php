@@ -7,7 +7,6 @@ namespace Library\Tools\Traits;
 /**
  * Trait database resoures update.
  *
- * @category   Microapp
  * @package    Tools
  */
 trait DbResource

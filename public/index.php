@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../library/Engine/Application.php';
+require_once __DIR__.'/../apps/Application.php';
 
 use Phalcon\DI\FactoryDefault;
 
@@ -44,9 +44,14 @@ try {
 	//echo $application->handle()->getContent();
 	$application->handle();
 
-} catch (Phalcon\Exception $e) {
+} catch (\Phalcon\Exception $e) {
 	$application->manageResponse($e, true);
-} catch(\Exception $e) {
+}
+catch(\PDOException $e) {
+	$application->attachCorsHeaders();
+	$application->manageResponse($e, true);
+}
+catch(\Exception $e) {
 	$application->attachCorsHeaders();
 	$application->manageResponse($e, true);
 }
