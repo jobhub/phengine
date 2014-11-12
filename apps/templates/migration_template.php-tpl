@@ -1,0 +1,55 @@
+<?php
+
+require_once('library/Engine/DbMigration.php');
+
+class {ClassName} extends \Engine\DbMigration {
+  /**
+   Templates for class members
+   *
+   ---ROLE CONTANT NAMES---
+   см.таблицу acl_roles
+   Наиболее часто используемые:
+   GUEST
+   AUTHORISED
+   PARTNER_BASIC         //Авторизированный пользователь
+	 OPERATOR_BASIC        //Авторизированный оператор
+   PARTNER_USER          //Пользователь магазина-партнера
+   PARTNER_ADMIN         //Пользователь магазина-партнера с правами администратора
+   OPERATOR_SUPERADMIN   //Администратор системы
+   OPERATOR_ADMIN        //Администратор оператора системы
+   OPERATOR_USER
+   *
+   ---RESOURCES AND ACLS ----
+   *
+   protected $_resources = array(
+    array(
+      'type' => 'gui',
+      'url' => 'controller/action',
+      'roles' => array('allow' => array('ROLE_CONSTANT_NAME'))
+    ),
+    array (
+      'type'       => 'api',
+      'controller' => 'controller',
+      'action'     => 'action',
+      'roles' => array('allow' => array('ROLE_CONSTANT_NAME'))
+    ),
+  );
+   ---MENUES ---
+   protected $_menues = array(
+    array(
+      'currentPath' => 'Настройки/Личные сведения',
+
+      'path'   => 'Настройки/Личные сведения',
+      'url'    => 'user/view',
+      'icon'   => '/ico/settings/users_data.png',
+      'weight' => 1000,
+    )
+   );
+   */
+  public function safeUp() {
+  }
+
+  public function safeDown() {
+  }
+
+}

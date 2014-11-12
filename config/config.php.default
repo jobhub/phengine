@@ -1,0 +1,104 @@
+<?php
+$config = array(
+	'database' => [
+	  'adapter' => 'pdo\Postgresql',
+	    //'adapter' => 'cacheable\Mysql',
+	  'host' => 'localhost',
+	  'username' => 'epos',
+	  'password' => 'flover',
+	  'dbname' => 'epos',
+	  'useAnnotations' => false,
+	  'useCache' => false
+	],
+	'mongo' => [
+		'host'=>'localhost',
+	  'dbname'=>'epos'
+	],
+	'application' => [
+	  'ns' => 'Microapp',
+	  'site_uri' => 'http://paygateway.dev.local',
+	  'frontend_uri' => 'http://webgateway.dev.local/index.debug.html',
+	  'services_ns' =>'\Library\Services',
+	  'defaultModule' => 'frontend',
+	  'debug' => true,
+	  'useCachingInDebugMode' => false, // кэшировать на дебаге
+	  'profiler' => true,
+	  'baseUri' => '/',
+	  'default_lang' => 'en',
+	  'controllersDir' => BASE_PATH . '/apps/controllers',
+	  'localesDir' => BASE_PATH . '/apps/locales',
+	  'pluginsDir' => BASE_PATH . '/apps/plugins/',
+	  'librariesDir' => BASE_PATH . '/library/',
+	  'cache' => [
+	    'output' => [
+	      'adapter' => 'File',
+	      'lifetime' => '3600',
+	      'prefix' => 'event_',
+	      'cacheDir' => BASE_PATH . '/var/cache/data/'
+	    ],
+	    'data' => [
+	      'adapter' => 'File',
+	      'lifetime' => '86400',
+	      'prefix' => 'entry_',
+	      'cacheDir' => BASE_PATH . '/var/cache/data/'
+	    ]
+	  ],
+	  'session' => [
+				'adapter' => 'mongo',
+				'collection_name' => 'session_data',
+				'lifetime' => '3600',
+				'cookie_liftime' => '3600'
+		],
+	  'logger' => [
+	    'enabled' => true,
+	    'path' => BASE_PATH . '/var/logs/',
+	    'format' => '[%date%][%type%] %message%',
+	    'project' => 'gateway'
+	  ],
+	  'assets' => [
+	    'local' =>  '/',
+	    'remote' => '/',
+	  ],
+	  'acl' => [
+	    'adapter' => 'database',
+	    'db' => 'db',
+	    'roles' => 'acl_roles',
+	    'resources' => 'api_resources',
+	    'resourcesAccesses' => 'api_access_rights',
+	    'accessList' => 'acl_access_list',
+	    'rolesInherits' => 'acl_roles_inherits'
+	  ]
+	],
+	'metadata' => [
+	  'adapter' => 'Files',
+	  'metaDataDir' => BASE_PATH . '/var/cache/metadata/',
+	    /*'adapter' => 'redis',
+			'lifetime' => '3600',
+			'prefix' => 'event_',
+			'redis' => [
+					'host' => '127.0.0.1',
+					'port' => 6379
+			]*/
+	],
+	'annotations' => [
+	  'adapter' => 'Files',
+	  'annotationsDir' => BASE_PATH . '/var/cache/annotations/',
+	],
+	'events' => [
+	],
+	'plugins' => [
+	]
+);
+
+$development_config = array(
+
+);
+
+function getConfig ($env='production') {
+	global $config;
+	if($env!='production') {
+		global $development_config;
+		$config = array_merge($config, $development_config);
+	}
+	return new \Phalcon\Config($config);
+}

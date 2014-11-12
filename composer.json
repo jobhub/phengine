@@ -1,0 +1,17 @@
+{
+    "require": {
+        "phalcon/incubator": "dev-master",
+        "grundik/yii-migrate": "*@dev"
+
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "repositories": [{
+        "type": "vcs",
+        "url": "https://github.com/Grundik/yii-migrate.git"
+      }, {
+        "type": "vcs",
+        "url": "https://github.com/yiisoft/yii.git"
+      }]
+}
