@@ -38,8 +38,8 @@ class Application extends \Phalcon\Mvc\Micro {
 		$loader = new \Phalcon\Loader();
 
 		$namespaces = array(
-			'Library' => realpath(__DIR__.'/../library/'),
-			'Engine' => realpath(__DIR__.'/../library/Engine')
+			'Library' => BASE_PATH.'/library',
+			'Engine' => BASE_PATH.'/library/Engine'
 		);
 
 
@@ -80,7 +80,7 @@ class Application extends \Phalcon\Mvc\Micro {
 
 		$this->_getTranslation();
 		if(strtolower($_SERVER['REQUEST_METHOD'])!='options') {
-			$this->attachSecurity($eventsManager);
+			//$this->attachSecurity($eventsManager);
 		}
 
 
@@ -212,12 +212,13 @@ class Application extends \Phalcon\Mvc\Micro {
 
 	protected function _parseApi () {
 		$path = $this->_config->application->controllersDir;
+		$core_ns = $this->config->application->ns;
 
 		$useCache = !$this->isDebug();
 
 		foreach (\Library\Tools\File::getDirEntries($path) as $c) {
 	    if (preg_match('/^(.+)Controller\.php$/', $c, $matches)) {
-		    $className = 'Microapp\Controllers\\'.$matches[1].'Controller';
+		    $className = $core_ns.'\Controllers\\'.$matches[1].'Controller';
 
 				$handle = new \Phalcon\Mvc\Micro\Collection();
 
@@ -270,10 +271,13 @@ class Application extends \Phalcon\Mvc\Micro {
 		} else {
 			$this->_parseApi();
 		}
+		$indexController = $this->_config->application->ns.'\Controllers\\IndexController';
+
+		$this->get('/', array(new $indexController(), 'indexAction'));
 
 		$this->notFound(function () {
 	    $this->response->setStatusCode(404, "Not Found")->sendHeaders();
-	    echo $this->getDI()->get('translation')->_('NO_ACTION_TO_SERVE');
+	    echo $this->getDI()->get('translate')->_('NO_ACTION_TO_SERVE');
 		});
 	}
 

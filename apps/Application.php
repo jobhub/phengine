@@ -1,6 +1,8 @@
 <?php
 namespace Microapp;
 
+require_once('../library/Engine/Application.php');
+
 class Application extends \Engine\Application {
 
 	protected $_services = array(
@@ -16,7 +18,9 @@ class Application extends \Engine\Application {
 			'Microapp\Models'=>realpath(__DIR__.'/models/')
 		);
 
-		$loader->registerNamespaces( $namespaces, true );
+		$reg_namespaces = array_merge($loader->getNamespaces(), $namespaces);
+
+		$loader->registerNamespaces( $reg_namespaces, true );
 
 		$this->_loader = $loader;
 

@@ -3,14 +3,14 @@
 namespace Microapp\Controllers;
 
 
-class IndexController extends ControllerBase {
+class TestController extends ControllerBase {
 	/**
 	 * @api("httpMethod"="get")
 	 */
     public function indexAction()
     {
 	    $this->view->success = true;
-	    $this->view->setVar('msg', 'Index controller index action ');
+	    $this->view->setVar('msg', 'Test controller index action ');
     }
 
 	/**
